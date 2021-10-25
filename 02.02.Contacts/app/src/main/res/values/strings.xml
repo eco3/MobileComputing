@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Contacts</string>
+    <string name="button_save">Save</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="telephone">Telephone</string>
+</resources>
