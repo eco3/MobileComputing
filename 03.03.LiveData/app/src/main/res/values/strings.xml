@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">SQLite</string>
+    <string name="app_name">Live Data</string>
     <string name="button_add">Add to DB</string>
-    <string name="button_read">Read from DB</string>
     <string name="placeholder">New record</string>
 </resources>
