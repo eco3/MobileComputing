@@ -1,7 +1,4 @@
-package de.mobilecomputing.exercise3.networkarchitecture;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+package de.mobilecomputing.exercise3.networkarchitecture.reqresapi;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -17,12 +14,11 @@ public class ApiBuilder {
 
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
-        Gson gson = new GsonBuilder().create();
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(client)
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(new DataConverterFactory())
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         return (T) retrofit.create(serviceInterface);

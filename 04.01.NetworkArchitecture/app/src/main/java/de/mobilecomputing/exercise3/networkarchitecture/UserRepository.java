@@ -8,6 +8,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
+import de.mobilecomputing.exercise3.networkarchitecture.reqresapi.ApiBuilder;
+import de.mobilecomputing.exercise3.networkarchitecture.reqresapi.ReqResApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,22 +30,28 @@ public class UserRepository {
     }
 
     public LiveData<List<User>> getUsers() {
-        api.getUsers().enqueue(new Callback<UserList>() {
+        api.getUsers().enqueue(new Callback<List<User>>() {
             @Override
-            public void onResponse(@NonNull Call<UserList> call, @NonNull Response<UserList> response) {
+            public void onResponse(@NonNull Call<List<User>> call, @NonNull Response<List<User>> response) {
                 Log.d(TAG, "onResponse: " + response.message());
 
                 if (response.body() != null) {
-                    userListLiveData.setValue(response.body().users);
+                    userListLiveData.setValue(response.body());
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<UserList> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<List<User>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: Failed to fetch user list from server.");
             }
         });
 
         return userListLiveData;
     }
+
+//    public LiveData<User> getUser(int userId) {
+//        api.getUser(userId).enqueue();
+//
+//        return userListLiveData;
+//    }
 }
