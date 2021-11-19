@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "user")
 public class User {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
     public long id;
 
@@ -23,5 +23,14 @@ public class User {
     @Override
     public String toString() {
         return firstName + " " + lastName;
+    }
+
+    public User() {
+    }
+
+    public User(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
 }

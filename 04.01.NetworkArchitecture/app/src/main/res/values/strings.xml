@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Network &amp; Architecture</string>
+    <string name="name">Name</string>
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
+    <string name="email">Email</string>
+    <string name="save">Save</string>
 </resources>
