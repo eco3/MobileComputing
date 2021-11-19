@@ -1,8 +1,13 @@
 package de.mobilecomputing.exercise3.networkarchitecture;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "user")
 public class User {
+    @PrimaryKey
     @SerializedName("id")
     public long id;
 
