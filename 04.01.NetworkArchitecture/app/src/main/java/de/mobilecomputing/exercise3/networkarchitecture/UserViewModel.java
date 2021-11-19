@@ -1,27 +1,24 @@
 package de.mobilecomputing.exercise3.networkarchitecture;
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-public class UserViewModel extends ViewModel {
-    private LiveData<List<User>> users;
-    private UserRepository repository;
+public class UserViewModel extends AndroidViewModel {
+    private final LiveData<List<User>> users;
+    private final UserRepository repository;
 
-    public UserViewModel() {
-        super();
+    public UserViewModel(Application application) {
+        super(application);
 
-        repository = UserRepository.getInstance();
+        repository = new UserRepository(application);
         users = repository.getUsers();
     }
 
     public LiveData<List<User>> getUsers() {
         return users;
-    }
-
-    @Override
-    protected void onCleared() {
-        super.onCleared();
     }
 }

@@ -11,8 +11,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private UserViewModel mViewModel;
-
+    private UserViewModel userViewModel;
     private RecyclerView userListRecyclerView;
 
     @Override
@@ -21,13 +20,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         userListRecyclerView = findViewById(R.id.user_recyclerview);
-        mViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
-        mViewModel.getUsers().observe(this, (List<User> users) -> {
-            UserAdapter userAdapter = new UserAdapter(this, users);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-            userListRecyclerView.setLayoutManager(layoutManager);
-            userListRecyclerView.setAdapter(userAdapter);
-        });
+        UserAdapter userAdapter = new UserAdapter();
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        userListRecyclerView.setLayoutManager(layoutManager);
+        userListRecyclerView.setAdapter(userAdapter);
+
+        userViewModel.getUsers().observe(this, userAdapter::updateData);
     }
 }

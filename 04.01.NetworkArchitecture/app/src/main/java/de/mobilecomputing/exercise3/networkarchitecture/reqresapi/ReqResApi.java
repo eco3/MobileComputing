@@ -11,6 +11,6 @@ public interface ReqResApi {
     @GET("api/users?per_page=1000")
     Call<List<User>> getUsers();
 
-//    @GET("api/users/{id}")
-//    Call<UserList> getUser(@Path("id") int userId);
+    @GET("api/users/{id}")
+    Call<User> getUser(@Path("id") int userId);
 }

@@ -1,6 +1,5 @@
 package de.mobilecomputing.exercise3.networkarchitecture;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,21 +8,26 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
-    private Context mContext;
     private List<User> users;
 
-    public UserAdapter(Context mContext, List<User> users) {
-        this.mContext = mContext;
-        this.users = users;
+    public UserAdapter() {
+        this.users = new ArrayList<>();
+    }
+
+    public void updateData(final List<User> users) {
+        this.users.clear();
+        this.users.addAll(users);
+        this.notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.user_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_item, parent, false);
 
         return new UserViewHolder(view);
     }

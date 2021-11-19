@@ -1,5 +1,6 @@
 package de.mobilecomputing.exercise3.networkarchitecture;
 
+import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -16,16 +17,12 @@ import retrofit2.Response;
 
 public class UserRepository {
     private static final String TAG = "UserRepository";
-    private static final UserRepository instance = new UserRepository();
     private final ReqResApi api;
 
     private MutableLiveData<List<User>> userListLiveData = new MutableLiveData<>();
+    private MutableLiveData<User> userLiveData = new MutableLiveData<>();
 
-    public static UserRepository getInstance() {
-        return instance;
-    }
-
-    private UserRepository() {
+    public UserRepository(Application application) {
         api = ApiBuilder.create(ReqResApi.class);
     }
 
@@ -49,9 +46,19 @@ public class UserRepository {
         return userListLiveData;
     }
 
-//    public LiveData<User> getUser(int userId) {
-//        api.getUser(userId).enqueue();
-//
-//        return userListLiveData;
-//    }
+    public LiveData<User> getUser(int userId) {
+        api.getUser(userId).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+            }
+        });
+
+        return userLiveData;
+    }
 }
