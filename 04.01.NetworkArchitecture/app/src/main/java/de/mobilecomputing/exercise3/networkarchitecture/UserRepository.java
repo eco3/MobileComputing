@@ -35,15 +35,36 @@ public class UserRepository {
         return userDao.getUsers();
     }
 
+    public LiveData<User> getUser(long id) {
+        refreshUser(id);
+        return userDao.getUser(id);
+    }
+
+    private void refreshUser(final long id) {
+        executor.execute(() -> {
+            if (userDao.hasUser(id)) {
+                try {
+                    Response<User> fetchedUser = reqResApi.getUser(id).execute();
+
+                    userDao.saveUser(fetchedUser.body());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
     private void refreshUsers() {
         executor.execute(() -> {
             try {
-                Response<List<User>> usersResponse = reqResApi.getUsers().execute();
+                Response<List<User>> fetchedUsers = reqResApi.getUsers().execute();
 
-                userDao.insertUsers(usersResponse.body());
+                userDao.insertUsers(fetchedUsers.body());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
     }
+
+
 }

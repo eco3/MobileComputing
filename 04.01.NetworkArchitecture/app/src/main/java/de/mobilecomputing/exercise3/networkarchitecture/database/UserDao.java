@@ -18,4 +18,13 @@ public interface UserDao {
 
     @Query("SELECT * FROM user")
     LiveData<List<User>> getUsers();
+
+    @Query("SELECT COUNT(*) FROM user WHERE id == :id")
+    boolean hasUser(long id);
+
+    @Insert(onConflict = REPLACE)
+    void saveUser(User user);
+
+    @Query("SELECT * FROM user WHERE id == :id")
+    LiveData<User> getUser(long id);
 }
