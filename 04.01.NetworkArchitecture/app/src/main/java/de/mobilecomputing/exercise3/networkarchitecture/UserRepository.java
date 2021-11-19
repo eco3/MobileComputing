@@ -1,14 +1,11 @@
 package de.mobilecomputing.exercise3.networkarchitecture;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 import de.mobilecomputing.exercise3.networkarchitecture.database.UserDao;
 import de.mobilecomputing.exercise3.networkarchitecture.database.UserDatabase;
@@ -20,14 +17,11 @@ public class UserRepository {
     private static final String TAG = "UserRepository";
     private final ReqResApi reqResApi;
     private final UserDao userDao;
-    private final Executor executor;
 
     public UserRepository(Application application) {
         UserDatabase db = UserDatabase.getDatabase(application);
-
         reqResApi = ApiBuilder.create(ReqResApi.class);
         userDao = db.userDao();
-        executor = Executors.newSingleThreadExecutor();
     }
 
     public LiveData<List<User>> getUsers() {
@@ -41,12 +35,12 @@ public class UserRepository {
     }
 
     private void refreshUser(final long id) {
-        executor.execute(() -> {
+        UserDatabase.databaseWriteExecutor.execute(() -> {
             if (userDao.hasUser(id)) {
                 try {
                     Response<User> fetchedUser = reqResApi.getUser(id).execute();
 
-                    userDao.saveUser(fetchedUser.body());
+                    userDao.insertUser(fetchedUser.body());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -55,7 +49,7 @@ public class UserRepository {
     }
 
     private void refreshUsers() {
-        executor.execute(() -> {
+        UserDatabase.databaseWriteExecutor.execute(() -> {
             try {
                 Response<List<User>> fetchedUsers = reqResApi.getUsers().execute();
 
@@ -66,5 +60,9 @@ public class UserRepository {
         });
     }
 
-
+    public void insertUser(User user) {
+        UserDatabase.databaseWriteExecutor.execute(() -> {
+            userDao.insertUser(user);
+        });
+    }
 }

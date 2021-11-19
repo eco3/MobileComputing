@@ -23,7 +23,7 @@ public interface UserDao {
     boolean hasUser(long id);
 
     @Insert(onConflict = REPLACE)
-    void saveUser(User user);
+    void insertUser(User user);
 
     @Query("SELECT * FROM user WHERE id == :id")
     LiveData<User> getUser(long id);

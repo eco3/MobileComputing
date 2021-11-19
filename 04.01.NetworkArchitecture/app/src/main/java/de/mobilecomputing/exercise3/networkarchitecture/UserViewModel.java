@@ -15,10 +15,18 @@ public class UserViewModel extends AndroidViewModel {
         super(application);
 
         userRepository = new UserRepository(application);
-        users = this.userRepository.getUsers();
+        users = userRepository.getUsers();
     }
 
     public LiveData<List<User>> getUsers() {
         return users;
+    }
+
+    public LiveData<User> getUser(long id) {
+        return userRepository.getUser(id);
+    }
+
+    public void saveUser(User user) {
+        userRepository.insertUser(user);
     }
 }
