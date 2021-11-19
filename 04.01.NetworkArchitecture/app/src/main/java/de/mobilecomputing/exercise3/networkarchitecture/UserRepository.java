@@ -36,7 +36,7 @@ public class UserRepository {
 
     private void refreshUser(final long id) {
         UserDatabase.databaseWriteExecutor.execute(() -> {
-            if (userDao.hasUser(id)) {
+            if (!userDao.hasUser(id)) {
                 try {
                     Response<User> fetchedUser = reqResApi.getUser(id).execute();
 
@@ -61,8 +61,6 @@ public class UserRepository {
     }
 
     public void insertUser(User user) {
-        UserDatabase.databaseWriteExecutor.execute(() -> {
-            userDao.insertUser(user);
-        });
+        UserDatabase.databaseWriteExecutor.execute(() -> userDao.insertUser(user));
     }
 }

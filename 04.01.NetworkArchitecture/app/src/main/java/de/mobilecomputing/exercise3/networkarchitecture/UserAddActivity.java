@@ -37,11 +37,12 @@ public class UserAddActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Please fill in name and email.", Toast.LENGTH_SHORT).show();
         }
 
-        userViewModel.saveUser(new User(
-                firstnameTextEdit.getText().toString(),
-                lastnameTextEdit.getText().toString(),
-                emailTextEdit.getText().toString()
-        ));
+        User newUser = new User();
+        newUser.firstName = firstnameTextEdit.getText().toString();
+        newUser.lastName = lastnameTextEdit.getText().toString();
+        newUser.email = emailTextEdit.getText().toString();
+
+        userViewModel.saveUser(newUser);
 
         finish();
     }
