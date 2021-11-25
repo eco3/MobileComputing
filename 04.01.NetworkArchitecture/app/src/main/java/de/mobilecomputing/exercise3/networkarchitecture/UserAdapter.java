@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
@@ -23,6 +24,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public void updateData(final List<User> users) {
         this.users.clear();
         this.users.addAll(users);
+        this.users.sort(Comparator.comparing(User::toString));
         this.notifyDataSetChanged();
     }
 
