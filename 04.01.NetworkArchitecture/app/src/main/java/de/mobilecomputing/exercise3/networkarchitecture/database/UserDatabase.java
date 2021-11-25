@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import de.mobilecomputing.exercise3.networkarchitecture.User;
+import de.mobilecomputing.exercise3.networkarchitecture.models.User;
 
 @Database(entities = {User.class}, version = 1)
 public abstract class UserDatabase extends RoomDatabase {

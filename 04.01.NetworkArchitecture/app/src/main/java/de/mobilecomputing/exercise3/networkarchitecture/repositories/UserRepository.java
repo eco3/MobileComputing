@@ -1,4 +1,4 @@
-package de.mobilecomputing.exercise3.networkarchitecture;
+package de.mobilecomputing.exercise3.networkarchitecture.repositories;
 
 import android.app.Application;
 
@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import java.io.IOException;
 import java.util.List;
 
+import de.mobilecomputing.exercise3.networkarchitecture.models.User;
 import de.mobilecomputing.exercise3.networkarchitecture.database.UserDao;
 import de.mobilecomputing.exercise3.networkarchitecture.database.UserDatabase;
 import de.mobilecomputing.exercise3.networkarchitecture.reqresapi.ApiBuilder;

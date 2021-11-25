@@ -1,4 +1,4 @@
-package de.mobilecomputing.exercise3.networkarchitecture;
+package de.mobilecomputing.exercise3.networkarchitecture.repositories;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -13,6 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import de.mobilecomputing.exercise3.networkarchitecture.R;
+import de.mobilecomputing.exercise3.networkarchitecture.UserViewActivity;
+import de.mobilecomputing.exercise3.networkarchitecture.models.User;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
     private final List<User> users;

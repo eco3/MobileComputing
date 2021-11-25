@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import de.mobilecomputing.exercise3.networkarchitecture.models.User;
+import de.mobilecomputing.exercise3.networkarchitecture.viewmodel.UserViewModel;
+
 public class UserAddActivity extends AppCompatActivity {
 
     private TextInputEditText firstnameTextEdit;

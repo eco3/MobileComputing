@@ -1,4 +1,4 @@
-package de.mobilecomputing.exercise3.networkarchitecture;
+package de.mobilecomputing.exercise3.networkarchitecture.viewmodel;
 
 import android.app.Application;
 
@@ -6,6 +6,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+
+import de.mobilecomputing.exercise3.networkarchitecture.models.User;
+import de.mobilecomputing.exercise3.networkarchitecture.repositories.UserRepository;
 
 public class UserViewModel extends AndroidViewModel {
     private final LiveData<List<User>> users;

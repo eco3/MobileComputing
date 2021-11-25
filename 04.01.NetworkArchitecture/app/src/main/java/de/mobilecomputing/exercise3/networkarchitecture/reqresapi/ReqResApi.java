@@ -2,7 +2,7 @@ package de.mobilecomputing.exercise3.networkarchitecture.reqresapi;
 
 import java.util.List;
 
-import de.mobilecomputing.exercise3.networkarchitecture.User;
+import de.mobilecomputing.exercise3.networkarchitecture.models.User;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

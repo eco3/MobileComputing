@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import de.mobilecomputing.exercise3.networkarchitecture.repositories.UserAdapter;
+import de.mobilecomputing.exercise3.networkarchitecture.viewmodel.UserViewModel;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

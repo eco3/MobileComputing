@@ -9,7 +9,7 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import de.mobilecomputing.exercise3.networkarchitecture.User;
+import de.mobilecomputing.exercise3.networkarchitecture.models.User;
 
 @Dao
 public interface UserDao {

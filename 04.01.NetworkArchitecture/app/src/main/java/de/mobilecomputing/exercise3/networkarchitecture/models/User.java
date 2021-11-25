@@ -1,4 +1,4 @@
-package de.mobilecomputing.exercise3.networkarchitecture;
+package de.mobilecomputing.exercise3.networkarchitecture.models;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
