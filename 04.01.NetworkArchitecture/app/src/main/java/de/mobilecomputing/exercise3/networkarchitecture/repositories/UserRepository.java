@@ -62,6 +62,15 @@ public class UserRepository {
     }
 
     public void insertUser(User user) {
-        UserDatabase.databaseWriteExecutor.execute(() -> userDao.insertUser(user));
+        UserDatabase.databaseWriteExecutor.execute(() -> {
+            try {
+                Response<User> postedUser = reqResApi.postUser(user).execute();
+
+                userDao.insertUser(postedUser.body());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 }
