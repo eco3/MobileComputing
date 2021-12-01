@@ -1,112 +1,100 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
-import type {Node} from 'react';
+import React, { Component } from 'react';
 import {
+  Button,
   SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
-  useColorScheme,
+  TextInput,
   View,
+  Text,
+  FlatList
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const Separator = () => (
+  <View style={styles.separator} />
+);
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+const Item = ({ title }) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{title}</Text>
+  </View>
+);
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+export default class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      todostodoInput: null,
+      todos: []
+    };
+  }
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  render() {
+      const renderItem = ({ item }) => (
+        <Item title={item.title} />
+      );
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+      return (
+        <SafeAreaView style={styles.container}>
+          <View>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter a todo..."
+              onChangeText={todoInput => this.setState({todoInput})}
+              ref={input => { this.textInput = input }}
+              />
+            <Button
+              title="Add todo"
+              onPress={() => {
+                const { todoInput } = this.state;
+                const { todos } = this.state;
+
+                todos.push({
+                  'id': todos.length.toString(),
+                  'title': todoInput
+                });
+
+                this.setState({todos})
+                this.textInput.clear()
+              }}
+            />
+          </View>
+          <Separator />
+          <FlatList
+            data={this.state.todos}
+            extraData={this.state.todos}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+          />
+        </SafeAreaView>
+      );
+  }
+}
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    marginHorizontal: 16,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  title: {
+    color: '#000',
+    textAlign: 'left',
+    marginVertical: 12,
   },
-  highlight: {
-    fontWeight: '700',
+  separator: {
+    marginVertical: 8,
+    borderBottomColor: '#737373',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  item: {
+    backgroundColor: '#ddd',
+    padding: 5,
+    marginVertical: 4,
+    marginHorizontal: 16,
   },
 });
-
-export default App;
