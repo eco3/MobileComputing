@@ -9,14 +9,32 @@ import {
 export default class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {};
+    this.state = {
+      startTime: new Date(),
+      currentTime: new Date(),
+      secondsCounter: '0',
+    };
+  }
+
+  componentDidMount() {
+    this.timerID = setInterval(() => {
+      let currentTime = new Date();
+      this.setState({currentTime});
+
+      let secondsCounter = Math.round((currentTime - this.state.startTime)/1000);
+      this.setState({secondsCounter})
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
   }
 
   render() {
       return (
         <SafeAreaView style={styles.container}>
           <View>
-            <Text style={styles.title}>Hello World</Text>
+            <Text style={styles.counterText}>{this.state.secondsCounter}s</Text>
           </View>
         </SafeAreaView>
       );
@@ -26,11 +44,11 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  title: {
-    color: '#000',
-    textAlign: 'left',
-    marginVertical: 12,
-  },
+  counterText:{
+    fontSize: 50,
+    color: '#000'
+  }
 });
